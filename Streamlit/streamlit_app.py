@@ -40,48 +40,32 @@ st.write("")
 col1, col2 = st.columns([1,1])
 
 with col1:
-    st.markdown("<div style='font-size:14px; height:40px;'>I enjoy traveling with my wife</div>", unsafe_allow_html=True)
-    travel = st.slider("", 0, 4, 2, key="travel_slider")
-    st.divider()
-    st.markdown("<div style='font-size:14px; height:40px;'>I think my spouse and I are in harmony</div>", unsafe_allow_html=True)
-    harmony = st.slider("", 0, 4, 2, key="harmony_slider")
-    st.divider()
-    st.markdown("<div style='font-size:14px; height:40px;'>Our dreams are similar and harmonious</div>", unsafe_allow_html=True)
-    dreams = st.slider("", 0, 4, 2, key="dreams_slider")
-    st.divider()
-    st.markdown("<div style='font-size:14px; height:40px;'>We share the same views about being happy in our life</div>", unsafe_allow_html=True)
-    happy = st.slider("", 0, 4, 2, key="happy_slider")
-    st.divider()
-    st.markdown("<div style='font-size:14px; height:40px;'>My spouse and I have similar ideas about how marriage should be</div>", unsafe_allow_html=True)
-    marriage = st.slider("", 0, 4, 2, key="marriage_slider")
-
-with col2:
-    st.markdown("<div style='font-size:14px; height:40px;'>I know my spouse's basic anxieties</div>", unsafe_allow_html=True)
-    anxieties = st.slider("", 0, 4, 2, key="anxieties_slider")
-    st.divider()
-    st.markdown("<div style='font-size:14px; height:40px;'>I feel aggressive when I argue with my spouse</div>", unsafe_allow_html=True)
-    aggro = st.slider("", 0, 4, 2, key="aggressive_slider")
-    st.divider()
-    st.markdown("<div style='font-size:14px; height:40px;'>I hate my spouse's way of opening a subject</div>", unsafe_allow_html=True)
-    hate = st.slider("", 0, 4, 2, key="hate_slider")
+    st.markdown("<div style='font-size:14px; height:40px;'>When we need it, we can take our discussions with my spouse from the beginning and correct it</div>", unsafe_allow_html=True)
+    correct = st.slider("", 0, 4, 2, key="correct_slider")
     st.divider()
     st.markdown("<div style='font-size:14px; height:40px;'>We're just starting a discussion before I know what's going on</div>", unsafe_allow_html=True)
     idk = st.slider("", 0, 4, 2, key="idk_slider")
     st.divider()
+    st.markdown("<div style='font-size:14px; height:40px;'>My spouse and I have similar values in trust</div>", unsafe_allow_html=True)
+    trust = st.slider("", 0, 4, 2, key="trust_slider")
+
+with col2:
     st.markdown("<div style='font-size:14px; height:40px;'>Sometimes I think it's good for me to leave home for a while</div>", unsafe_allow_html=True)
     good = st.slider("", 0, 4, 2, key="good_slider")
+    st.divider()
+    st.markdown("<div style='font-size:14px; height:40px;'>I know my spouse's basic anxieties</div>", unsafe_allow_html=True)
+    anxieties = st.slider("", 0, 4, 2, key="anxieties_slider")
+    st.divider()
+    st.markdown("<div style='font-size:14px; height:40px;'>I have nothing to do with what I've been accused of</div>", unsafe_allow_html=True)
+    accusations = st.slider("", 0, 4, 2, key="accusations_slider")
 
 payload = {
-    "enjoy_travel": travel,
-    "harmony": harmony,
-    "dreams": dreams,
-    "happy": happy,
-    "marriage": marriage,
-    "anxieties": anxieties,
-    "Aggro_argue": aggro,
-    "hate_subjects": hate,
+    "begin_correct": correct,
     "idk_what_s_going_on": idk,
-    "good_to_leave_home": good
+    "trust": trust,
+    "good_to_leave_home": good,
+    "anxieties": anxieties,
+    "accusations": accusations,
 }
 
 st.divider()
@@ -94,10 +78,10 @@ if st.button("Predict marriage stability"):
         prediction = result.get("prediction")
         message = result.get("message")
 
-        if prediction == 0:
-            st.success("Your marriage has a good chance of lasting!")
+        if prediction == 1:
+            st.success(message)
         else:
-            st.warning("Your relationship has some vulnerabilities")
+            st.warning(message)
 
     else:
         st.error("Error while calling the API")
